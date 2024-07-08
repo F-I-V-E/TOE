@@ -18,6 +18,7 @@ namespace TOE
     {
         int player = 1;
         TAC tac = new TAC();
+        bool alreadyShowedWinningScreen = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -29,22 +30,54 @@ namespace TOE
             {
                 Button button = sender as Button;
 
-                button.Content = (tac.place(button.Name[4] - 48, button.Name[5] - 48, player));
-
-                if (tac.checkWinner() > 0)
-                {
-                    MessageBox.Show($"Player {tac.checkWinner()} won!");
-                }
-                else if (tac.checkWinner() == -1) MessageBox.Show("Tie!");
+                tac.place(button.Name[4] - 48, button.Name[5] - 48, player);
+                refreshField();
 
                 if (++player == 3) player = 1;
 
                 tac.aiMove(player);
+                refreshField();
+
+                if (++player == 3) player = 1;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error");
             }
+        }
+
+        private void refreshField()
+        {
+
+            Button[,] buttons = {
+                { btn_00, btn_01, btn_02 },
+                { btn_10, btn_11, btn_12 },
+                { btn_20, btn_21, btn_22 }
+                };
+
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    buttons[x, y].Content = tac.convertPlayerData([x, y]);
+                    buttons[x,y].FontSize = 200;
+                }
+            }
+
+            if (!alreadyShowedWinningScreen)
+            {
+                if (tac.checkWinner() > 0)
+                {
+                    MessageBox.Show($"Player {tac.checkWinner()} won!");
+                    alreadyShowedWinningScreen = true;
+                }
+                else if (tac.checkWinner() == -1)
+                {
+                    MessageBox.Show("Tie!");
+                    alreadyShowedWinningScreen = true;
+                }
+            }
+
         }
     }
 }

@@ -33,7 +33,7 @@ namespace TOE
             }
         }
 
-        private string convertPlayerData(int[] pos)
+        public string convertPlayerData(int[] pos)
         {
             switch (field[pos[0],pos[1]])
             {
@@ -55,21 +55,23 @@ namespace TOE
         /// <param name="player"></param>
         /// <returns>Value to print on Button</returns>
         /// <exception cref="Exception"></exception>
-        public string place(int x, int y, int player)
+        public void place(int x, int y, int player)
         {
-            if (field[x,y] == 0 && !gameover)
+            if (!gameover)
             {
-                field[x,y] = player;
+                if (field[x, y] == 0 && !gameover)
+                {
+                    field[x, y] = player;
+                }
+                else if (field[x, y] >= 1 && !gameover)
+                {
+                    throw new Exception("Field occupied");
+                }
+                else
+                {
+                    throw new Exception("Game is over");
+                }
             }
-            else if (field[x,y] >= 1 && !gameover)
-            {
-                throw new Exception("Field occupied");
-            }
-            else
-            {
-                throw new Exception("Game is over");
-            }
-            return convertPlayerData([x, y]);
         }
 
         /// <summary>
@@ -79,67 +81,65 @@ namespace TOE
         public int checkWinner()
         {
             //vertical
-            if (!gameover)
+            
+            for (int y = 0; y < field.GetLength(1); y++)
             {
-                for (int y = 0; y < field.GetLength(1); y++)
-                {
-                    if (field[y, 0] == field[y, 1]
-                        && field[y, 2] == field[y, 0] && field[y,0] != 0)
-                    {
-                        gameover = true;
-                        return field[y, 0];
-                    }
-                }
-
-                // horizontal
-
-                for (int x = 0; x < field.GetLength(0); x++)
-                {
-                    if (field[0, x] == field[1, x] 
-                        && field[2, x] == field[0, x] && field[0, x] != 0)
-                    {
-                        gameover = true;
-                        return field[0, x];
-                    }
-                }
-
-                // Cross
-                if (field[1,1] != 0)
-                {
-                    int temp = field[1,1];
-
-                    if (temp == field[0, 0]
-                        && temp == field[2, 2])
-                    {
-                        gameover = true;
-                        return temp; 
-                    }
-
-                    if (temp == field[0,2]
-                        && temp == field[2,0])
-                    {
-                        gameover = true;
-                        return temp;
-                    }
-                }
-
-                int c = 0;
-
-                for (int i = 0; i < field.GetLength(0); i++)
-                {
-                    for (int f = 0; f < field.GetLength(1); f++)
-                    {
-                        if (field[i, f] != 0) c++;
-                    }
-                }
-
-                if (c == 9)
+                if (field[y, 0] == field[y, 1]
+                    && field[y, 2] == field[y, 0] && field[y,0] != 0)
                 {
                     gameover = true;
-                    return -1;
+                    return field[y, 0];
                 }
             }
 
+            // horizontal
+
+            for (int x = 0; x < field.GetLength(0); x++)
+            {
+                if (field[0, x] == field[1, x] 
+                    && field[2, x] == field[0, x] && field[0, x] != 0)
+                {
+                    gameover = true;
+                    return field[0, x];
+                }
+            }
+
+            // Cross
+            if (field[1,1] != 0)
+            {
+                int temp = field[1,1];
+
+                if (temp == field[0, 0]
+                    && temp == field[2, 2])
+                {
+                    gameover = true;
+                    return temp; 
+                }
+                if (temp == field[0,2]
+                    && temp == field[2,0])
+                {
+                    gameover = true;
+                    return temp;
+                }
+            }
+
+            int c = 0;
+
+            for (int i = 0; i < field.GetLength(0); i++)
+            {
+                for (int f = 0; f < field.GetLength(1); f++)
+                {
+                    if (field[i, f] != 0) c++;
+                }
+            }
+
+            if (c == 9)
+            {
+                gameover = true;
+                return -1;
+            }
+
+            gameover = false;
             return 0;
         }
 
@@ -165,14 +165,17 @@ namespace TOE
 
         public void aiMove(int player)
         {
-            bool max = player == 1;
-            positionValue res = aiMoveCalculation(max);
-            place(res.pos[0], res.pos[1], player);
+            if (!gameover)
+            {
+                bool max = player == 1;
+                positionValue res = aiMoveCalculation(max);
+                checkWinner();
+                place(res.pos[0], res.pos[1], player);
+            }
         }
 
         private positionValue aiMoveCalculation(bool maximizingPlayer = true, int depth = int.MaxValue) 
         {
-
             positionValue bestMove = new();
             positionValue currentMove = new();
             bestMove.value = maximizingPlayer ? int.MinValue : int.MaxValue;
@@ -184,6 +187,7 @@ namespace TOE
             {
                 for (int y = 0; y < field.GetLength(1); y++)
                 {
+                    if (null == bestMove.pos) bestMove.pos = [x, y];
                     if (!isOccupied([x, y]))
                     {
                         field[x, y] = maximizingPlayer ? 1 : 2;
