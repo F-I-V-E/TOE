@@ -79,60 +79,66 @@ namespace TOE
         public int checkWinner()
         {
             //vertical
-
-            for (int y = 0; y < field.GetLength(1); y++)
+            if (!gameover)
             {
-                if (field[y, 0] == field[y, 1]
-                    && field[y, 2] == field[y, 0] && field[y,0] != 0)
+                for (int y = 0; y < field.GetLength(1); y++)
+                {
+                    if (field[y, 0] == field[y, 1]
+                        && field[y, 2] == field[y, 0] && field[y,0] != 0)
+                    {
+                        gameover = true;
+                        return field[y, 0];
+                    }
+                }
+
+                // horizontal
+
+                for (int x = 0; x < field.GetLength(0); x++)
+                {
+                    if (field[0, x] == field[1, x] 
+                        && field[2, x] == field[0, x] && field[0, x] != 0)
+                    {
+                        gameover = true;
+                        return field[0, x];
+                    }
+                }
+
+                // Cross
+                if (field[1,1] != 0)
+                {
+                    int temp = field[1,1];
+
+                    if (temp == field[0, 0]
+                        && temp == field[2, 2])
+                    {
+                        gameover = true;
+                        return temp; 
+                    }
+
+                    if (temp == field[0,2]
+                        && temp == field[2,0])
+                    {
+                        gameover = true;
+                        return temp;
+                    }
+                }
+
+                int c = 0;
+
+                for (int i = 0; i < field.GetLength(0); i++)
+                {
+                    for (int f = 0; f < field.GetLength(1); f++)
+                    {
+                        if (field[i, f] != 0) c++;
+                    }
+                }
+
+                if (c == 9)
                 {
                     gameover = true;
-                    return field[y, 0];
+                    return -1;
                 }
             }
-
-            // horizontal
-
-            for (int x = 0; x < field.GetLength(0); x++)
-            {
-                if (field[0, x] == field[1, x] 
-                    && field[2, x] == field[0, x] && field[0, x] != 0)
-                {
-                    gameover = true;
-                    return field[0, x];
-                }
-            }
-
-            // Cross
-            if (field[1,1] != 0)
-            {
-                int temp = field[1,1];
-
-                if (temp == field[0, 0]
-                    && temp == field[2, 2])
-                {
-                    gameover = true;
-                    return temp; 
-                }
-
-                if (temp == field[0,2]
-                    && temp == field[2,0])
-                {
-                    gameover = true;
-                    return temp;
-                }
-            }
-
-            int c = 0;
-
-            for (int i = 0; i < field.GetLength(0); i++)
-            {
-                for (int f = 0; f < field.GetLength(1); f++)
-                {
-                    if (field[i, f] != 0) c++;
-                }
-            }
-
-            if (c == 9) return -1;
 
             return 0;
         }
@@ -189,7 +195,6 @@ namespace TOE
                             bestMove = currentMove;
                             bestMove.pos = [x, y];
                         }
-
                     }
                 }
             }
@@ -198,7 +203,7 @@ namespace TOE
 
         private bool isOccupied(int[] pos)
         {
-            return (field[pos[0],pos[1]] == 0);
+            return (field[pos[0],pos[1]] != 0);
         }
     }
 }
