@@ -99,8 +99,8 @@ namespace TOE
         private void ResetGame()
         {
             gameRunning = false;
-            alreadyShowedWinningScreen = false;
             tac.Reset();
+            alreadyShowedWinningScreen = false;
             refreshField();
         }
     }
