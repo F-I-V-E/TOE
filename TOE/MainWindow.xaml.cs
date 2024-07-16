@@ -47,6 +47,7 @@ namespace TOE
 
         private void refreshField()
         {
+            MessageBoxResult result = MessageBoxResult.None;
 
             Button[,] buttons = {
                 { btn_00, btn_01, btn_02 },
@@ -68,16 +69,18 @@ namespace TOE
             {
                 if (tac.checkWinner() > 0)
                 {
-                    MessageBox.Show($"Player {tac.checkWinner()} won!");
+                    result = MessageBox.Show($"Player {tac.checkWinner()} won!");
+                    
                     alreadyShowedWinningScreen = true;
                 }
                 else if (tac.checkWinner() == -1)
                 {
-                    MessageBox.Show("Tie!");
+                    result = MessageBox.Show("Tie!");
                     alreadyShowedWinningScreen = true;
                 }
             }
-
+            if (result == MessageBoxResult.OK)
+                ResetGame();
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
@@ -89,6 +92,11 @@ namespace TOE
         }
 
         private void btn_reset_Click(object sender, RoutedEventArgs e)
+        {
+            ResetGame();
+        }
+
+        private void ResetGame()
         {
             gameRunning = false;
             alreadyShowedWinningScreen = false;
