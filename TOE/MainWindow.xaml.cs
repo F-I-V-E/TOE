@@ -9,6 +9,7 @@ namespace TOE
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool gameRunning = false;
         Brush[] brushes = [Brushes.Black, Brushes.Black, Brushes.Black];
         int difficulty = int.MaxValue;
         int player = 1;
@@ -19,18 +20,21 @@ namespace TOE
             InitializeComponent();
         }
 
-        private void place(object sender, RoutedEventArgs e)
+        private async void place(object sender, RoutedEventArgs e)
         {
             try
             {
+                gameRunning = true;
                 Button? button = sender as Button;
-
+                refreshField();
                 tac.place(x: button.Name[4] - 48, y: button.Name[5] - 48, player: player);
+                if (++player == 3) player = 1;
+                
                 refreshField();
 
-                if (++player == 3) player = 1;
-
                 tac.aiMove(player,difficulty);
+                await Task.Delay(10);
+                Thread.Sleep(490);
                 refreshField();
 
                 if (++player == 3) player = 1;
@@ -80,12 +84,13 @@ namespace TOE
         {
             Preferences preferences = new();
             preferences.ShowDialog();
-            difficulty = preferences.Difficulty;
+            if (!gameRunning) difficulty = preferences.Difficulty;
             brushes = preferences.Brushess;
         }
 
         private void btn_reset_Click(object sender, RoutedEventArgs e)
         {
+            gameRunning = false;
             alreadyShowedWinningScreen = false;
             tac.Reset();
             refreshField();
