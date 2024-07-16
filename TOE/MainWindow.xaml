@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TOE"
         mc:Ignorable="d"
-        Title="TIC" Height="1012" Width="900">
+        Title="TIC" Height="1012" Width="900"
+        WindowStartupLocation="CenterScreen">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.125*"></RowDefinition>
@@ -19,8 +21,9 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Menu Grid.Column="0" Grid.Row="0">
-            <MenuItem Header="Preferences" Grid.Row="0" Grid.Column="0">
+        <Menu Grid.Column="0" Grid.Row="0" 
+              HorizontalAlignment="Left" VerticalAlignment="Top">
+            <MenuItem Header="Preferences" HorizontalAlignment="Stretch" Padding="5,2,5,2">
                 <MenuItem x:Name="Settings" Header="Settings" Click="Settings_Click"></MenuItem>
             </MenuItem>
         </Menu>
@@ -28,9 +31,10 @@
         <Button Click="btn_reset_Click" Grid.Row="0" Grid.Column="1" x:Name="btn_reset"
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                 FontWeight="Normal" FontSize="25">Reset</Button>
-        <Label Grid.Column="2" Grid.Row="0" x:Name="lb_score" 
-               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-               FontWeight="Bold" FontSize="25">0 : 0</Label>
+        <Viewbox Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform">
+            <Label x:Name="lb_score"
+                   FontWeight="Bold">0 : 0</Label>
+        </Viewbox>
         
         <Button Grid.Column="0" Grid.Row="1" x:Name="btn_00" Click="place"></Button>
         <Button Grid.Column="0" Grid.Row="2" x:Name="btn_01" Click="place"></Button>
