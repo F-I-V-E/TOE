@@ -15,6 +15,8 @@ namespace TOE
         int player = 1;
         TAC tac = new TAC();
         bool alreadyShowedWinningScreen = false;
+        
+        int[] score = new []{0,0};
         public MainWindow()
         {
             InitializeComponent();
@@ -64,13 +66,19 @@ namespace TOE
                     buttons[x,y].FontSize = 200;
                 }
             }
+            
+            lb_score.Content = $"{score[0]} : {score[1]}";
 
             if (!alreadyShowedWinningScreen)
             {
                 if (tac.checkWinner() > 0)
                 {
-                    result = MessageBox.Show($"Player {tac.checkWinner()} won!");
+                    if (tac.checkWinner() == 1)
+                        score[0]++;
+                    else
+                        score[1]++;
                     
+                    result = MessageBox.Show($"Player {tac.checkWinner()} won!");
                     alreadyShowedWinningScreen = true;
                 }
                 else if (tac.checkWinner() == -1)
@@ -93,6 +101,7 @@ namespace TOE
 
         private void btn_reset_Click(object sender, RoutedEventArgs e)
         {
+            score = new []{0,0};
             ResetGame();
         }
 

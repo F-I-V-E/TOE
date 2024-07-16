@@ -3,8 +3,9 @@ namespace TOE
 {
     class TAC
     {
-        int[,] field = new int[3, 3];
-        bool gameover = false;
+
+        private int[,] field = new int[3, 3];
+        private bool gameover = false;
 
         public TAC()
         {
