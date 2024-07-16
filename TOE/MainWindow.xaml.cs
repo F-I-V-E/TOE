@@ -16,6 +16,8 @@ namespace TOE
     /// </summary>
     public partial class MainWindow : Window
     {
+        Brush[] brushes = new Brush[] { Brushes.Black, Brushes.Black, Brushes.Black };
+        int difficulty = int.MaxValue;
         int player = 1;
         TAC tac = new TAC();
         bool alreadyShowedWinningScreen = false;
@@ -28,14 +30,14 @@ namespace TOE
         {
             try
             {
-                Button button = sender as Button;
+                Button? button = sender as Button;
 
-                tac.place(button.Name[4] - 48, button.Name[5] - 48, player);
+                tac.place(x: button.Name[4] - 48, y: button.Name[5] - 48, player: player);
                 refreshField();
 
                 if (++player == 3) player = 1;
 
-                tac.aiMove(player);
+                tac.aiMove(player,difficulty);
                 refreshField();
 
                 if (++player == 3) player = 1;
@@ -60,6 +62,7 @@ namespace TOE
                 for (int y = 0; y < 3; y++)
                 {
                     buttons[x, y].Content = tac.convertPlayerData([x, y]);
+                    buttons[x,y].Foreground = (string)buttons[x,y].Content == "x" ? brushes[1] : brushes[2];
                     buttons[x,y].FontSize = 200;
                 }
             }
@@ -78,6 +81,20 @@ namespace TOE
                 }
             }
 
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            Preferences preferences = new();
+            preferences.ShowDialog();
+            difficulty = preferences.Difficulty;
+            brushes = preferences.Brushess;
+        }
+
+        private void btn_reset_Click(object sender, RoutedEventArgs e)
+        {
+            tac.Reset();
+            refreshField();
         }
     }
 }

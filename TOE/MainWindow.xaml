@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TOE"
         mc:Ignorable="d"
-        Title="TIC" Height="900" Width="900">
+        Title="TIC" Height="1012" Width="900">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.125*"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -17,18 +18,26 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+
+        <Menu Grid.Column="0" Grid.Row="0">
+            <MenuItem Header="Preferences" Grid.Row="0" Grid.Column="0">
+                <MenuItem x:Name="Settings" Header="Settings" Click="Settings_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <Button x:Name="btn_reset" Click="btn_reset_Click" Grid.Row="0" Grid.Column="1">Reset</Button>
         
-        <Button Grid.Column="0" Grid.Row="0" x:Name="btn_00" Click="place"></Button>
-        <Button Grid.Column="0" Grid.Row="1" x:Name="btn_01" Click="place"></Button>
-        <Button Grid.Column="0" Grid.Row="2" x:Name="btn_02" Click="place"></Button>
+        <Button Grid.Column="0" Grid.Row="1" x:Name="btn_00" Click="place"></Button>
+        <Button Grid.Column="0" Grid.Row="2" x:Name="btn_01" Click="place"></Button>
+        <Button Grid.Column="0" Grid.Row="3" x:Name="btn_02" Click="place"></Button>
 
-        <Button Grid.Column="1" Grid.Row="0" x:Name="btn_10" Click="place"></Button>
-        <Button Grid.Column="1" Grid.Row="1" x:Name="btn_11" Click="place"></Button>
-        <Button Grid.Column="1" Grid.Row="2" x:Name="btn_12" Click="place"></Button>
+        <Button Grid.Column="1" Grid.Row="1" x:Name="btn_10" Click="place"></Button>
+        <Button Grid.Column="1" Grid.Row="2" x:Name="btn_11" Click="place"></Button>
+        <Button Grid.Column="1" Grid.Row="3" x:Name="btn_12" Click="place"></Button>
 
-        <Button Grid.Column="2" Grid.Row="0" x:Name="btn_20" Click="place"></Button>
-        <Button Grid.Column="2" Grid.Row="1" x:Name="btn_21" Click="place"></Button>
-        <Button Grid.Column="2" Grid.Row="2" x:Name="btn_22" Click="place"></Button>
+        <Button Grid.Column="2" Grid.Row="1" x:Name="btn_20" Click="place"></Button>
+        <Button Grid.Column="2" Grid.Row="2" x:Name="btn_21" Click="place"></Button>
+        <Button Grid.Column="2" Grid.Row="3" x:Name="btn_22" Click="place"></Button>
 
     </Grid>
 </Window>

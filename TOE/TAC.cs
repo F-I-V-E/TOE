@@ -174,6 +174,17 @@ namespace TOE
             }
         }
 
+        public void aiMove(int player, int depth)
+        {
+            if (!gameover)
+            {
+                bool max = player == 1;
+                positionValue res = aiMoveCalculation(max, depth);
+                checkWinner();
+                place(res.pos[0], res.pos[1], player);
+            }
+        }
+
         private positionValue aiMoveCalculation(bool maximizingPlayer = true, int depth = int.MaxValue) 
         {
             positionValue bestMove = new();

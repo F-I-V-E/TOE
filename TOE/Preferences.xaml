@@ -1,0 +1,42 @@
+<Window x:Class="TOE.Preferences"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TOE"
+        mc:Ignorable="d"
+        Title="Preferences" Height="400" Width="800">
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.125*"></RowDefinition>
+            <RowDefinition Height="0.125*"></RowDefinition>
+            <RowDefinition Height="0.125*"></RowDefinition>
+            <RowDefinition Height="0.125*"></RowDefinition>
+            <RowDefinition Height="0.125*"></RowDefinition>
+            <RowDefinition Height="0.125*"></RowDefinition>
+            <RowDefinition Height="0.125*"></RowDefinition>
+			<RowDefinition></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition></ColumnDefinition>
+			<ColumnDefinition Width="0.25*"></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+
+		<TextBox Grid.Row="0" Grid.Column="0" x:Name="tb_setting_difficulty_label" IsEnabled="False" FontSize="15">Difficulty</TextBox>
+		<ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmb_setting_difficulty" SelectionChanged="difficultySelected">
+			<ComboBoxItem x:Name="cmbdiff1">easy</ComboBoxItem>
+			<ComboBoxItem x:Name="cmbdiff2">intermediate</ComboBoxItem>
+			<ComboBoxItem x:Name="cmbdiff3">hard</ComboBoxItem>
+			<ComboBoxItem x:Name="cmbdiff4">impossible</ComboBoxItem>
+		</ComboBox>
+
+        <TextBox Grid.Row="1" Grid.Column="0" x:Name="tb_menu_color_label" IsEnabled="False" FontSize="15">Menu Color</TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="tb_menu_color" KeyDown="ColorChanged"/>
+
+        <TextBox Grid.Row="2" Grid.Column="0" x:Name="tb_p1_color_label" IsEnabled="False" FontSize="15">Player 1 Color</TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="tb_p1_color" KeyDown="ColorChanged"/>
+
+        <TextBox Grid.Row="3" Grid.Column="0" x:Name="tb_p2_color_label" IsEnabled="False" FontSize="15">Player 2 Color</TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="tb_p2_color" KeyDown="ColorChanged"/>
+    </Grid>
+</Window>
