@@ -220,5 +220,10 @@ namespace TOE
         {
             return (field[pos[0],pos[1]] != 0);
         }
+
+        public int getPlayerInt(int x, int y)
+        {
+            return field[x,y];
+        }
     }
 }

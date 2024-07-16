@@ -16,7 +16,7 @@ namespace TOE
     /// </summary>
     public partial class MainWindow : Window
     {
-        Brush[] brushes = new Brush[] { Brushes.Black, Brushes.Black, Brushes.Black };
+        Brush[] brushes = [Brushes.Black, Brushes.Black, Brushes.Black];
         int difficulty = int.MaxValue;
         int player = 1;
         TAC tac = new TAC();
@@ -62,7 +62,7 @@ namespace TOE
                 for (int y = 0; y < 3; y++)
                 {
                     buttons[x, y].Content = tac.convertPlayerData([x, y]);
-                    buttons[x,y].Foreground = (string)buttons[x,y].Content == "x" ? brushes[1] : brushes[2];
+                    buttons[x, y].Foreground = brushes[tac.getPlayerInt(x, y)];
                     buttons[x,y].FontSize = 200;
                 }
             }
@@ -93,6 +93,7 @@ namespace TOE
 
         private void btn_reset_Click(object sender, RoutedEventArgs e)
         {
+            alreadyShowedWinningScreen = false;
             tac.Reset();
             refreshField();
         }
