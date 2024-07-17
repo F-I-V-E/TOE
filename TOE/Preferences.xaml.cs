@@ -7,13 +7,13 @@ namespace TOE
 {
     partial class Preferences : Window
     {
-        Brush[] brushes = new Brush[] { Brushes.Black, Brushes.Black, Brushes.Black };
+        Brush[] brushes = [Brushes.Black, Brushes.Black, Brushes.Black];
         int difficulty = int.MaxValue;
         public int Difficulty => difficulty;
         public Brush[] Brushess => brushes;
         public Preferences() => InitializeComponent();
 
-        private void difficultySelected(object sender, SelectionChangedEventArgs e)
+        private void DifficultySelected(object sender, SelectionChangedEventArgs e)
         {
             switch (cmb_setting_difficulty.SelectedIndex)
             {

@@ -23,7 +23,7 @@
 		</Grid.ColumnDefinitions>
 
 		<TextBox Grid.Row="0" Grid.Column="0" x:Name="tb_setting_difficulty_label" IsEnabled="False" FontSize="15">Difficulty</TextBox>
-		<ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmb_setting_difficulty" SelectionChanged="difficultySelected">
+		<ComboBox Grid.Row="0" Grid.Column="1" x:Name="cmb_setting_difficulty" SelectionChanged="DifficultySelected">
 			<ComboBoxItem x:Name="cmbdiff1">easy</ComboBoxItem>
 			<ComboBoxItem x:Name="cmbdiff2">intermediate</ComboBoxItem>
 			<ComboBoxItem x:Name="cmbdiff3">hard</ComboBoxItem>

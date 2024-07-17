@@ -28,7 +28,7 @@
             </MenuItem>
         </Menu>
 
-        <Button Click="btn_reset_Click" Grid.Row="0" Grid.Column="1" x:Name="btn_reset"
+        <Button Click="Reset" Grid.Row="0" Grid.Column="1" x:Name="btn_reset"
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                 FontWeight="Normal" FontSize="25">Reset</Button>
         <Viewbox Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform">
@@ -36,17 +36,17 @@
                    FontWeight="Bold">0 : 0</Label>
         </Viewbox>
         
-        <Button Grid.Column="0" Grid.Row="1" x:Name="btn_00" Click="place"></Button>
-        <Button Grid.Column="0" Grid.Row="2" x:Name="btn_01" Click="place"></Button>
-        <Button Grid.Column="0" Grid.Row="3" x:Name="btn_02" Click="place"></Button>
+        <Button Grid.Column="0" Grid.Row="1" x:Name="btn_00" Click="Place"></Button>
+        <Button Grid.Column="0" Grid.Row="2" x:Name="btn_01" Click="Place"></Button>
+        <Button Grid.Column="0" Grid.Row="3" x:Name="btn_02" Click="Place"></Button>
 
-        <Button Grid.Column="1" Grid.Row="1" x:Name="btn_10" Click="place"></Button>
-        <Button Grid.Column="1" Grid.Row="2" x:Name="btn_11" Click="place"></Button>
-        <Button Grid.Column="1" Grid.Row="3" x:Name="btn_12" Click="place"></Button>
+        <Button Grid.Column="1" Grid.Row="1" x:Name="btn_10" Click="Place"></Button>
+        <Button Grid.Column="1" Grid.Row="2" x:Name="btn_11" Click="Place"></Button>
+        <Button Grid.Column="1" Grid.Row="3" x:Name="btn_12" Click="Place"></Button>
 
-        <Button Grid.Column="2" Grid.Row="1" x:Name="btn_20" Click="place"></Button>
-        <Button Grid.Column="2" Grid.Row="2" x:Name="btn_21" Click="place"></Button>
-        <Button Grid.Column="2" Grid.Row="3" x:Name="btn_22" Click="place"></Button>
+        <Button Grid.Column="2" Grid.Row="1" x:Name="btn_20" Click="Place"></Button>
+        <Button Grid.Column="2" Grid.Row="2" x:Name="btn_21" Click="Place"></Button>
+        <Button Grid.Column="2" Grid.Row="3" x:Name="btn_22" Click="Place"></Button>
 
     </Grid>
 </Window>

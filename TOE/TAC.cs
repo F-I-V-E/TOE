@@ -27,7 +27,7 @@ namespace TOE
             }
         }
 
-        public string convertPlayerData(int[] pos)
+        public string ConvertPlayerData(int[] pos)
         {
             switch (field[pos[0],pos[1]])
             {
@@ -49,7 +49,7 @@ namespace TOE
         /// <param name="player"></param>
         /// <returns>Value to print on Button</returns>
         /// <exception cref="Exception"></exception>
-        public void place(int x, int y, int player)
+        public void Place(int x, int y, int player)
         {
             if (!gameover)
             {
@@ -72,7 +72,7 @@ namespace TOE
         /// 
         /// </summary>
         /// <returns>-1: Tie; 0: no one; 1: P1[X]; 2: P2[O]</returns>
-        public int checkWinner()
+        public int CheckWinner()
         {
             //vertical
             
@@ -137,14 +137,14 @@ namespace TOE
             return 0;
         }
 
-        private struct positionValue()
+        private struct PositionValue()
         {
             public int[] pos;
             public int value;
             public bool player;
         }
 
-        private int convertGoodBad(int t, bool aiBegins = true)
+        private int ConvertGoodBad(int t, bool aiBegins = true)
         {
             switch (t)
             {
@@ -157,46 +157,46 @@ namespace TOE
             }
         }
 
-        public void aiMove(int player)
+        public void AiMove(int player)
         {
             if (!gameover)
             {
                 bool max = player == 1;
-                positionValue res = aiMoveCalculation(max);
-                checkWinner();
-                place(res.pos[0], res.pos[1], player);
+                PositionValue res = AiMoveCalculation(max);
+                CheckWinner();
+                Place(res.pos[0], res.pos[1], player);
             }
         }
 
-        public void aiMove(int player, int depth)
+        public void AiMove(int player, int depth)
         {
             if (!gameover)
             {
                 bool max = player == 1;
-                positionValue res = aiMoveCalculation(max, depth);
-                checkWinner();
-                place(res.pos[0], res.pos[1], player);
+                PositionValue res = AiMoveCalculation(max, depth);
+                CheckWinner();
+                Place(res.pos[0], res.pos[1], player);
             }
         }
 
-        private positionValue aiMoveCalculation(bool maximizingPlayer = true, int depth = int.MaxValue) 
+        private PositionValue AiMoveCalculation(bool maximizingPlayer = true, int depth = int.MaxValue) 
         {
-            positionValue bestMove = new();
-            positionValue currentMove = new();
+            PositionValue bestMove = new();
+            PositionValue currentMove = new();
             bestMove.value = maximizingPlayer ? int.MinValue : int.MaxValue;
-            if (depth  == 0 || checkWinner() != 0)
+            if (depth  == 0 || CheckWinner() != 0)
             {
-                return new positionValue() { pos = [0,0], value = convertGoodBad(checkWinner())};
+                return new PositionValue() { pos = [0,0], value = ConvertGoodBad(CheckWinner())};
             }
             for (int x = 0; x < field.GetLength(0); x++)
             {
                 for (int y = 0; y < field.GetLength(1); y++)
                 {
                     if (null == bestMove.pos) bestMove.pos = [x, y];
-                    if (!isOccupied([x, y]))
+                    if (!IsOccupied([x, y]))
                     {
                         field[x, y] = maximizingPlayer ? 1 : 2;
-                        currentMove = aiMoveCalculation(!maximizingPlayer, depth - 1);
+                        currentMove = AiMoveCalculation(!maximizingPlayer, depth - 1);
                         field[x, y] = 0;
 
                         if ((currentMove.value > bestMove.value && maximizingPlayer) || (currentMove.value < bestMove.value && !maximizingPlayer))
@@ -210,12 +210,12 @@ namespace TOE
             return bestMove;
         }
 
-        private bool isOccupied(int[] pos)
+        private bool IsOccupied(int[] pos)
         {
             return (field[pos[0],pos[1]] != 0);
         }
 
-        public int getPlayerInt(int x, int y)
+        public int GetPlayerInt(int x, int y)
         {
             return field[x,y];
         }

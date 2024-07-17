@@ -22,22 +22,22 @@ namespace TOE
             InitializeComponent();
         }
 
-        private async void place(object sender, RoutedEventArgs e)
+        private async void Place(object sender, RoutedEventArgs e)
         {
             try
             {
                 gameRunning = true;
                 Button? button = sender as Button;
-                refreshField();
-                tac.place(x: button.Name[4] - 48, y: button.Name[5] - 48, player: player);
+                RefreshField();
+                tac.Place(x: button.Name[4] - 48, y: button.Name[5] - 48, player: player);
                 if (++player == 3) player = 1;
                 
-                refreshField();
+                RefreshField();
 
-                tac.aiMove(player,difficulty);
+                tac.AiMove(player,difficulty);
                 await Task.Delay(10);
                 Thread.Sleep(490);
-                refreshField();
+                RefreshField();
 
                 if (++player == 3) player = 1;
             }
@@ -47,7 +47,7 @@ namespace TOE
             }
         }
 
-        private void refreshField()
+        private void RefreshField()
         {
             MessageBoxResult result = MessageBoxResult.None;
 
@@ -61,8 +61,8 @@ namespace TOE
             {
                 for (int y = 0; y < 3; y++)
                 {
-                    buttons[x, y].Content = tac.convertPlayerData([x, y]);
-                    buttons[x, y].Foreground = brushes[tac.getPlayerInt(x, y)];
+                    buttons[x, y].Content = tac.ConvertPlayerData([x, y]);
+                    buttons[x, y].Foreground = brushes[tac.GetPlayerInt(x, y)];
                     buttons[x,y].FontSize = 200;
                 }
             }
@@ -71,17 +71,17 @@ namespace TOE
 
             if (!alreadyShowedWinningScreen)
             {
-                if (tac.checkWinner() > 0)
+                if (tac.CheckWinner() > 0)
                 {
-                    if (tac.checkWinner() == 1)
+                    if (tac.CheckWinner() == 1)
                         score[0]++;
                     else
                         score[1]++;
 
-                    result = MessageBox.Show($"Player {tac.checkWinner()} won!", "winner announcement", MessageBoxButton.OKCancel);
+                    result = MessageBox.Show($"Player {tac.CheckWinner()} won!", "winner announcement", MessageBoxButton.OKCancel);
                     alreadyShowedWinningScreen = true;
                 }
-                else if (tac.checkWinner() == -1)
+                else if (tac.CheckWinner() == -1)
                 {
                     result = MessageBox.Show("Tie!", "winner announcement", MessageBoxButton.OKCancel);
                     alreadyShowedWinningScreen = true;
@@ -99,9 +99,9 @@ namespace TOE
             brushes = preferences.Brushess;
         }
 
-        private void btn_reset_Click(object sender, RoutedEventArgs e)
+        private void Reset(object sender, RoutedEventArgs e)
         {
-            score = new []{0,0};
+            score = [0,0];
             ResetGame();
         }
 
@@ -110,7 +110,7 @@ namespace TOE
             gameRunning = false;
             tac.Reset();
             alreadyShowedWinningScreen = false;
-            refreshField();
+            RefreshField();
         }
     }
 }
