@@ -77,13 +77,13 @@ namespace TOE
                         score[0]++;
                     else
                         score[1]++;
-                    
-                    result = MessageBox.Show($"Player {tac.checkWinner()} won!");
+
+                    result = MessageBox.Show($"Player {tac.checkWinner()} won!", "winner announcement", MessageBoxButton.OKCancel);
                     alreadyShowedWinningScreen = true;
                 }
                 else if (tac.checkWinner() == -1)
                 {
-                    result = MessageBox.Show("Tie!");
+                    result = MessageBox.Show("Tie!", "winner announcement", MessageBoxButton.OKCancel);
                     alreadyShowedWinningScreen = true;
                 }
             }
