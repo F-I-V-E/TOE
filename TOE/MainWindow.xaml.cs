@@ -1,13 +1,6 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace TOE
 {
@@ -22,6 +15,8 @@ namespace TOE
         int player = 1;
         TAC tac = new TAC();
         bool alreadyShowedWinningScreen = false;
+        
+        int[] score = new []{0,0};
         public MainWindow()
         {
             InitializeComponent();
@@ -54,6 +49,7 @@ namespace TOE
 
         private void refreshField()
         {
+            MessageBoxResult result = MessageBoxResult.None;
 
             Button[,] buttons = {
                 { btn_00, btn_01, btn_02 },
@@ -70,21 +66,29 @@ namespace TOE
                     buttons[x,y].FontSize = 200;
                 }
             }
+            
+            lb_score.Content = $"{score[0]} : {score[1]}";
 
             if (!alreadyShowedWinningScreen)
             {
                 if (tac.checkWinner() > 0)
                 {
-                    MessageBox.Show($"Player {tac.checkWinner()} won!");
+                    if (tac.checkWinner() == 1)
+                        score[0]++;
+                    else
+                        score[1]++;
+                    
+                    result = MessageBox.Show($"Player {tac.checkWinner()} won!");
                     alreadyShowedWinningScreen = true;
                 }
                 else if (tac.checkWinner() == -1)
                 {
-                    MessageBox.Show("Tie!");
+                    result = MessageBox.Show("Tie!");
                     alreadyShowedWinningScreen = true;
                 }
             }
-
+            if (result == MessageBoxResult.OK)
+                ResetGame();
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
@@ -97,9 +101,15 @@ namespace TOE
 
         private void btn_reset_Click(object sender, RoutedEventArgs e)
         {
+            score = new []{0,0};
+            ResetGame();
+        }
+
+        private void ResetGame()
+        {
             gameRunning = false;
-            alreadyShowedWinningScreen = false;
             tac.Reset();
+            alreadyShowedWinningScreen = false;
             refreshField();
         }
     }

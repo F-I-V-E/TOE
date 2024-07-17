@@ -1,17 +1,11 @@
-﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace TOE
 {
     class TAC
     {
-        int[,] field = new int[3, 3];
-        bool gameover = false;
+
+        private int[,] field = new int[3, 3];
+        private bool gameover = false;
 
         public TAC()
         {
